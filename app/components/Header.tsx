@@ -4,13 +4,15 @@ import IconCart from '../assets/images/icon-cart.svg'
 import IconMenu from '../assets/images/icon-menu.svg'
 import IconSearch from '../assets/images/icon-search.svg'
 import styled from "styled-components"
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Header() {
+    const router = useRouter();
     const [showLinks, setShowLinks] = useState(false)
 
     return <Container>
-        <Logo>Bandage</Logo>
+        <Logo onClick={() => router.push('/')}>Bandage</Logo>
         <Links $show={showLinks}>
             <Link>Home</Link>
             <Link>Product</Link>

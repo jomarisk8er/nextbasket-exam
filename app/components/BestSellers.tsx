@@ -2,26 +2,21 @@
 
 import { useEffect, useState } from 'react'
 
+import { ProductType } from './types';
 import styled from "styled-components"
+import { useRouter } from 'next/navigation';
 
-type ProductType = {
-    id: string;
-    title: string;
-    description: string;
-    price: number;
-    discountPercentage: number;
-    rating: number;
-    stock: number;
-    brand: string;
-    category: string;
-    thumbnail: string;
-    images: string[];
+type Props = {
+    increment?: number;
+    initialLimit?: number;
+    loadMore?: boolean
 }
 
-export default function BestSellers() {
+export default function BestSellers({increment = 5, initialLimit = 10, loadMore = true} : Props) {
+    const router = useRouter()
     
     const [products, setProducts] = useState<ProductType[]>([])
-    const [limit, setLimit] = useState(5)
+    const [limit, setLimit] = useState(initialLimit)
     const [showLoadMore, setShowLoadMore] = useState(true)
 
     useEffect(() => {
@@ -42,7 +37,7 @@ export default function BestSellers() {
                 <Subtitle>Problems trying to resolve the conflict between </Subtitle>
             </Texts>
             <Products>
-                {products.map((product) => <Product key={product.id}>
+                {products.map((product) => <Product key={product.id} onClick={() => router.push(`/product/${product.id}`)}>
                     <Image src={product.thumbnail} alt={product.title}/>
                         <ProductDetails>
                         <ProductTitle>{product.title}</ProductTitle>
@@ -54,7 +49,7 @@ export default function BestSellers() {
                     </ProductDetails>
                 </Product>)}
             </Products>
-            {showLoadMore && <LoadMoreProduct onClick={() => setLimit(limit + 5)}>
+            {loadMore && showLoadMore && <LoadMoreProduct onClick={() => setLimit(limit + increment)}>
             LOAD MORE PRODUCTS
             </LoadMoreProduct>}
         </Wrapper>
