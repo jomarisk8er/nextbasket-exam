@@ -2,10 +2,11 @@ import './globals.css'
 
 import { Inter, Montserrat } from 'next/font/google'
 
+import Footer from './components/Footer'
 import Header from './components/Header'
 import type { Metadata } from 'next'
 
-const inter = Montserrat({ subsets: ['latin'] })
+const inter = Montserrat({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
 
 export const metadata: Metadata = {
   title: 'NextBasket - Bandage',
@@ -22,7 +23,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header/>
         {children}
-        </body>
+        <Footer />
+      </body>
     </html>
   )
 }

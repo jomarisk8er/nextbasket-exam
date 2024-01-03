@@ -1,48 +1,38 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
+import ServiceImage1 from '../assets/images/bx_bxs-book-reader.svg'
+import ServiceImage2 from '../assets/images/carbon_book.svg'
+import ServiceImage3 from '../assets/images/uil_arrow-growth.svg'
 import styled from "styled-components"
 
 export default function BestServices() {
     
-    const [products, setProducts] = useState<ProductType[]>([])
-    const [limit, setLimit] = useState(5)
-    const [showLoadMore, setShowLoadMore] = useState(true)
-
-    useEffect(() => {
-        fetch(`https://dummyjson.com/products?limit=${limit}`)
-        .then((data) => data.json())
-        .then((data) => {
-            if(data['products'].length < limit) setShowLoadMore(false)
-            setProducts(data['products'])
-            
-        })
-    }, [limit])
-
     return <Container>
         <Wrapper>
             <Texts>
-                <H4>Featured Products</H4>
-                <Title>BESTSELLER PRODUCTS</Title>
+                <H4>Featured Services</H4>
+                <Title>THE BEST SERVICES</Title>
                 <Subtitle>Problems trying to resolve the conflict between </Subtitle>
             </Texts>
-            <Products>
-                {products.map((product) => <Product key={product.id}>
-                    <Image src={product.thumbnail} alt={product.title}/>
-                        <ProductDetails>
-                        <ProductTitle>{product.title}</ProductTitle>
-                        <ProductDescription>{product.description}</ProductDescription>
-                        <Price>
-                            <OriginalPrice>${product.price}</OriginalPrice>
-                            <CurrentPrice>${(product.price - (product.price * product.discountPercentage/100)).toFixed(2)}</CurrentPrice>
-                        </Price>
-                    </ProductDetails>
-                </Product>)}
-            </Products>
-            {showLoadMore && <LoadMoreProduct onClick={() => setLimit(limit + 5)}>
-            LOAD MORE PRODUCTS
-            </LoadMoreProduct>}
+            <Services>
+                <Service>
+                    <Image src={ServiceImage1.src} alt='image'/>
+                    <ServiceName>Easy Wins</ServiceName>
+                    <ServiceDescription>Get your best looking smile now!</ServiceDescription>
+                </Service>
+
+                <Service>
+                    <Image src={ServiceImage2.src} alt='image'/>
+                    <ServiceName>Concrete</ServiceName>
+                    <ServiceDescription>Defalcate is most focused in helping you discover your most beautiful smile</ServiceDescription>
+                </Service>
+                <Service>
+                    <Image src={ServiceImage3.src} alt='image'/>
+                    <ServiceName>Hack Growth</ServiceName>
+                    <ServiceDescription>Overcame any hurdle or any other problem.</ServiceDescription>
+                </Service>
+                
+            </Services>
         </Wrapper>
     </Container>
 }
@@ -71,7 +61,7 @@ const H4 = styled.h4`
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
-    line-height: 30px; /* 150% */
+    line-height: 30px; 
     letter-spacing: 0.2px;
     color: #737373;
 `
@@ -81,7 +71,7 @@ const Title = styled.h3`
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
-    line-height: 32px; /* 133.333% */
+    line-height: 32px; 
     letter-spacing: 0.1px;
     text-align: center;
 `
@@ -91,111 +81,58 @@ const Subtitle = styled.p`
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 20px; /* 142.857% */
+    line-height: 20px; 
     letter-spacing: 0.2px;
     text-align: center;
     padding: 0 16px;
     color: #737373;
 `
 
-const Products = styled.div`
+const Services = styled.div`
     display: flex;
     flex-direction: column;
     gap: 30px;
+    justify-content: space-between;
 
     @media (min-width: 1024px) {
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 2%;
     }
 `
 
-const Product = styled.div`
+const Service = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 35px 40px;
+    align-items: center;
+    gap: 20px;
 
     @media (min-width: 1024px) {
-        width: 18.4%;
+        width: 30%;
     }
 `
 
 const Image = styled.img`
-    width: 100%;
-    height: 360px;
-    object-fit: cover;
-
-    @media (min-width: 1024px) {
-        height: 238px;
-    }
+    width: 72px;
+    height: 72px;
 `
 
-const ProductDetails = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px;
-    gap: 16px;
-`
-
-const ProductTitle = styled.h5`
+const ServiceName = styled.h3`
     margin: 0;
-    font-size: 16px;
+    text-align: center;
+    font-size: 24px;
     font-style: normal;
     font-weight: 700;
-    line-height: 24px; /* 150% */
+    line-height: 32px;
     letter-spacing: 0.1px;
 `
 
-const ProductDescription = styled.p`
+const ServiceDescription = styled.p`
     margin: 0;
+    text-align: center;
     font-size: 14px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 24px; /* 171.429% */
+    font-weight: 400;
+    line-height: 20px;
     letter-spacing: 0.2px;
-    text-align: center;
-`
-
-const Price = styled.div`
-    display: flex;
-    gap: 5px;
-`
-
-const OriginalPrice = styled.h5`
-    margin: 0;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px; /* 150% */
-    letter-spacing: 0.1px;
-    color: #BDBDBD;
-`
-
-const CurrentPrice = styled.h5`
-    margin: 0;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px; /* 150% */
-    letter-spacing: 0.1px;
-    color: #23856D;
-`
-
-const LoadMoreProduct = styled.button`
-    all: unset;
-    padding: 15px;
-    text-align: center;
-    border: 1px solid #23A6F0;
-    border-radius: 5px;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 22px; /* 157.143% */
-    letter-spacing: 0.2px;
-    color: #23A6F0;
-
-    @media (min-width: 1024px) {
-        width: fit-content;
-        margin: auto;
-    }
+    color: #737373;
 `

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 
-import ProductCover from '../assets/images/product-cover-5.png'
 import styled from "styled-components"
 
 type ProductType = {
@@ -210,9 +209,6 @@ const LoadMoreProduct = styled.button`
     line-height: 22px; /* 157.143% */
     letter-spacing: 0.2px;
     color: #23A6F0;
-
-    @media (min-width: 1024px) {
-        width: fit-content;
-        margin: auto;
-    }
+    margin: auto;
+    width: fit-content;
 `
