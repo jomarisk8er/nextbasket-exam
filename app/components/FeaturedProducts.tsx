@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import ArrowRightIcon1 from '../assets/images/icon arrow-next.svg'
