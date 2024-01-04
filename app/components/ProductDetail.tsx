@@ -12,7 +12,6 @@ import StarIcon from '../assets/images/icn bx-star.svg'
 import { addToCart } from "../lib/cart";
 import { addToWishlist } from "../lib/wishlist";
 import styled from "styled-components";
-import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
@@ -201,12 +200,14 @@ const Prev = styled.img`
     position: absolute;
     left: 30px;
     top: calc(30% - 24px);
+    cursor: pointer;
 `
 
 const Next = styled.img`
     position: absolute;
     right: 30px;
     top: calc(30% - 24px);
+    cursor: pointer;
 `
 
 const Thumbnails = styled.div`
