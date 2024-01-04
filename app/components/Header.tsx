@@ -1,15 +1,14 @@
 'use client'
 
-import { Provider, useDispatch, useSelector } from 'react-redux'
-import { RootState, store } from '../lib/store'
-import { addToCart, removeToCart, updateCart } from '../lib/cart'
-import { useEffect, useState } from 'react'
+import { FocusEvent, useEffect, useState } from 'react'
+import { removeToCart, updateCart } from '../lib/cart'
+import { useDispatch, useSelector } from 'react-redux'
 
 import IconCart from '../assets/images/icn settings icn-xs (1).svg'
 import IconMenu from '../assets/images/icon-menu.svg'
 import IconSearch from '../assets/images/icn settings icn-xs.svg'
 import IconWishlist from '../assets/images/icn settings icn-xs (2).svg'
-import { ToastContainer } from 'react-toastify'
+import { RootState } from '../lib/store'
 import { removeToWishlist } from '../lib/wishlist'
 import styled from "styled-components"
 import { useRouter } from 'next/navigation'
@@ -32,7 +31,7 @@ export default function Header() {
         setCartTotal(total)
     }, [cartProducts])
 
-    const handleOnBlur = (e, callback: () => void) => {
+    const handleOnBlur = (e: FocusEvent<HTMLDivElement, Element>, callback: () => void) => {
         const currentTarget = e.currentTarget;
 
         requestAnimationFrame(() => {
