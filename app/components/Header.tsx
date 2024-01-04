@@ -32,6 +32,16 @@ export default function Header() {
         setCartTotal(total)
     }, [cartProducts])
 
+    const handleOnBlur = (e, callback: () => void) => {
+        const currentTarget = e.currentTarget;
+
+        requestAnimationFrame(() => {
+        if (currentTarget && !currentTarget.contains(document.activeElement)) {
+            callback()
+        }
+        });
+    }
+
     return <Container>
                 <Logo onClick={() => router.push('/')}>Bandage</Logo>
                 <Links $show={showLinks}>
@@ -44,9 +54,9 @@ export default function Header() {
                     <Menu>
                     <MenuIcon src={IconSearch.src}/>
                     </Menu>
-                    <Menu>
+                    <Menu tabIndex={0} onBlur={(e) => handleOnBlur(e, () => setShowCart(false))}>
                         <MenuIcon src={IconCart.src} onClick={() => setShowCart(!showCart)} />
-                        {showCart && <CartContainer >
+                        {showCart && <CartContainer>
                             <CartList>
                                 {cartProducts.length === 0 && <b>Your cart is empty</b>}
                                 {cartProducts.map(product => <CartProduct key={`cart-product-${product.id}`}>
@@ -56,7 +66,7 @@ export default function Header() {
                                     </ThumbnailAndProductName>
                                     <QuantityAndPrice>
                                         <div>x
-                                        <Quantity type='number' defaultValue={product.quantity} onBlur={(e) => dispatch(updateCart({id: product.id, quantity: Number(e.currentTarget.value)}))}/></div>
+                                        <Quantity type='number' defaultValue={product.quantity} onBlur={(e) => product.quantity !== Number(e.currentTarget.value) && dispatch(updateCart({id: product.id, quantity: Number(e.currentTarget.value)}))}/></div>
                                         <Price>${product.price.toFixed(2)}</Price>
                                     </QuantityAndPrice>
                                     <RemoveProduct onClick={() => dispatch(removeToCart({id: product.id}))}>x</RemoveProduct>
@@ -68,7 +78,7 @@ export default function Header() {
                             </Total>
                         </CartContainer>}
                     </Menu>
-                    <Menu>
+                    <Menu tabIndex={0} onBlur={(e) => handleOnBlur(e, () => setShowWishlist(false))}>
                         <MenuIcon src={IconWishlist.src}  onClick={() => setShowWishlist(!showWishlist)}/>
                         {showWishlist && <CartContainer >
                             <CartList>
