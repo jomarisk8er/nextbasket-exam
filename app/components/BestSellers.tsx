@@ -122,6 +122,7 @@ const Products = styled.div`
 const Product = styled.div`
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 
     @media (min-width: 1024px) {
         width: 18.4%;
@@ -206,4 +207,5 @@ const LoadMoreProduct = styled.button`
     color: #23A6F0;
     margin: auto;
     width: fit-content;
+    cursor: pointer;
 `

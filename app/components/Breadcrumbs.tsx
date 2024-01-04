@@ -1,6 +1,7 @@
 'use client'
 
 import ArrowRightImage from '../assets/images/icn arrow-right icn-xs.svg'
+import Link from 'next/link';
 import styled from "styled-components";
 
 type Props = {
@@ -24,9 +25,13 @@ const BreadcrumbList = styled.div`
     display: flex;
     align-items: center;
     gap: 15px;
+    
+    @media (min-width: 1114px) {
+        margin-right: auto;
+    }
 `
 
-const Breadcrumb = styled.a<{$active?: boolean}>`
+const Breadcrumb = styled(Link)<{$active?: boolean}>`
     all: unset;
     display: flex;
     align-items: center;

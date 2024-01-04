@@ -206,6 +206,7 @@ const Button = styled.button`
     letter-spacing: 0.2px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    cursor: pointer;
 `
 
 const Span = styled.span`

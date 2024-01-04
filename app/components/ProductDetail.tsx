@@ -9,7 +9,11 @@ import FavoriteIcon from '../assets/images/icn favorite (5).svg'
 import MoreIcon from '../assets/images/icn favorite (4).svg'
 import { ProductType } from "./types";
 import StarIcon from '../assets/images/icn bx-star.svg'
+import { addToCart } from "../lib/cart";
+import { addToWishlist } from "../lib/wishlist";
 import styled from "styled-components";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 export default function ProductDetail({product}: {product: ProductType}) {
@@ -17,8 +21,8 @@ export default function ProductDetail({product}: {product: ProductType}) {
         { title: 'Home', link: '/' },
         { title: 'Shop', link: `/product/${product.id}`, active: true }
     ]
-
     const [active, setActive] = useState(0);
+    const dispatch = useDispatch()
 
     const prev = () => {
         let index = active;
@@ -79,8 +83,8 @@ export default function ProductDetail({product}: {product: ProductType}) {
                     <Stars>
                         {[1,2,3,4,5].map(star => {
                             if(star > product.rating)
-                            return  <Star src={StarIcon.src} />
-                            else return  <Star src={EmptyStarIcon.src} />
+                            return  <Star key={`star-${star}`} src={StarIcon.src} />
+                            else return  <Star key={`star-${star}`} src={EmptyStarIcon.src} />
                         })}
                     </Stars>
                     <Reviews>
@@ -103,10 +107,24 @@ export default function ProductDetail({product}: {product: ProductType}) {
                         <SelectOptions>Select Options</SelectOptions>
                         <CircleButtons>
                             <CircleButton>
-                                <CircleButtonIcon src={FavoriteIcon.src} />
+                                <CircleButtonIcon src={FavoriteIcon.src} onClick={() => {
+                                    dispatch(addToWishlist({
+                                        id: product.id,
+                                        name: product.title,
+                                        thumbnail: product.thumbnail
+                                    }))
+                                }}/>
                             </CircleButton>
                             <CircleButton>
-                                <CircleButtonIcon src={CartIcon.src} />
+                                <CircleButtonIcon src={CartIcon.src} onClick={() => {
+                                    dispatch(addToCart({
+                                        id: product.id,
+                                        name: product.title,
+                                        quantity: 1,
+                                        price: product.price - (product.price * product.discountPercentage / 100),
+                                        thumbnail: product.thumbnail
+                                    }))
+                                }}/>    
                             </CircleButton>
                             <CircleButton>
                                 <CircleButtonIcon src={MoreIcon.src} />
@@ -133,6 +151,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 72px;
+
+    @media (min-width: 1024px) {
+        gap: 34px;
+    }
 `
 
 const ProductContainer = styled.div`
@@ -327,4 +349,5 @@ const CircleButton = styled.div`
 const CircleButtonIcon = styled.img`
     width: 20px;
     height: 20px;
+    cursor: pointer;
 `
